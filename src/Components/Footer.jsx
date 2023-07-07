@@ -3,11 +3,10 @@ import Logo from "./Logo"
 
 export function Footer(props) {
     return (
-        <Flex direction='row' bg='#686963' {...props}>
+        <Flex direction='row' justify='center' align='center' bg='#686963' {...props}>
             
-            <Text fontSize=".8rem" m='auto'>&copy; ARC Designs 2023</Text>
-            {/* <Spacer /> */}
-            <Logo pr="0rem"/>
+            <Text fontSize=".8rem" p='.6em'>&copy; ARC Designs 2023</Text>
+            
             
         </Flex>
     )
