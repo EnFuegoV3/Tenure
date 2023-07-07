@@ -5,3 +5,11 @@
 
 }
 
+.logo {
+  -webkit-text-stroke: 2px #e94e4e;
+  letter-spacing: 2px;
+}
+
+.nav-items {
+  cursor: pointer;
+}
