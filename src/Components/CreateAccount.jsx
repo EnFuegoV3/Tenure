@@ -8,16 +8,14 @@ import {
     ModalCloseButton,
     useDisclosure,
     Button,
-    Text,
     Input,
     Stack,
     InputGroup,
     InputRightElement
-    
   } from '@chakra-ui/react'
-  import { useState } from 'react';
+import { useState } from 'react';
 
-export function SignUpModal() {
+export function CreateAccountModal() {
 
     const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -26,18 +24,17 @@ export function SignUpModal() {
 
     return (
         <>
-            <Text _hover={{color: "#e94e4e", fontStyle: 'italic'}} className="nav-items" onClick={onOpen}>Sign up</Text>
-            
-            <Modal isOpen={isOpen} onClose={onClose}>
+            <Button mr={5} bg='#d8e2dc' cursor='pointer' onClick={onOpen}>Create Account</Button>
+            <Modal isOpen={isOpen} onClose={onClose} isCentered>
                 <ModalOverlay />
                 <ModalContent>
                     <ModalHeader>Create Account</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        <Stack spacing={3}>
-                            <Input placeholder='Username' size='md' variant='filled'/>
-                            <Input placeholder='Email' size='md' variant='filled'/>
-                            <InputGroup size='md'>
+                    <Stack spacing={3}>
+                        <Input placeholder='Username' size='md' variant='filled' required/>
+                        <Input placeholder='Email' size='md' variant='filled'/>
+                        <InputGroup size='md'>
                             <Input
                                 pr='4.5rem'
                                 type={show ? 'text' : 'password'}
@@ -61,7 +58,7 @@ export function SignUpModal() {
                                 </Button>
                             </InputRightElement>
                         </InputGroup>
-                        </Stack>
+                    </Stack>
                     </ModalBody>
                     <ModalFooter>
                         <Button colorScheme='blue' mr={3}>Submit</Button>
