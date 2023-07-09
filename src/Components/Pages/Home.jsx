@@ -1,36 +1,59 @@
-import { Heading, UnorderedList } from "@chakra-ui/react";
-import Logo from "../Logo";
-import { Flex, Spacer, Box, Text, Container, List, ListItem, ListIcon, Button } from "@chakra-ui/react";
-import { CreateAccountModal } from "../CreateAccount";
-
-
+import { Grid, GridItem, Flex, Box, Text, Stack, VStack, Avatar, Heading } from "@chakra-ui/react"
+import CircumIcon from "@klarr-agency/circum-icons-react"
+import { useState } from "react"
 
 
 export function Home() {
+
+    const [jobs, setJobs] = useState(
+        [
+            {
+                name: 'Cosco',
+                dates: {
+                    date: '',
+                    hours: ''
+                }
+            },
+            {
+                name: 'Freelance',
+                dates: {
+                    date: '',
+                    hours: ''
+                }
+            },
+            
+        ]
+    )
     
+    const displayJobs = jobs.map((job, index)=> <Text key={index}>{job.name}</Text>)
+
+
+    const [currentDate, setCurrentDate] = useState()
 
     return (
-        <Flex maxW='80%' m='auto' justify='center' gap='5em' direction='column' align='center' mt='2em'>
-            <Heading fontFamily={'prompt'} fontWeight="600">Track and optimize your work hours with ease.</Heading>
-            <Container fontFamily={'libre franklin'} fontSize='1.2rem' lineHeight={1.8} textIndent='20px'>With Tenure, you can effortlessly monitor and record your work hours, making it easier than ever to stay organized and efficient. Whether you're a freelancer, a remote worker or someone looking to track your productivity, Tenure offers a user-friendly interface and great features to help you keep track of your valuable time.</Container>
-            <Flex bg='#e94e4e' color='#0a2342' borderRadius={8} w='l' align='center' justify='space-between' mb='5em'>
-                <UnorderedList listStyleType='none' fontFamily={'prompt'} fontSize='1.2rem' fontWeight={600} spacing={2} p={2} py={5} mr={8}>
-                    <ListItem>
-                        - Create jobs
-                    </ListItem>
-                    <ListItem>
-                        - Clock in and Clock out
-                    </ListItem>
-                    <ListItem>
-                        - View Logs
-                    </ListItem>
-                    
-                </UnorderedList>
-                <Spacer />
-                {/* <Button mr={5} bg='#d8e2dc' cursor='pointer'>Create Account</Button> */}
-                <CreateAccountModal />
-            </Flex>
+        <Grid 
+            templateColumns='.2fr .6fr 2fr'
+            templateRows='2fr 1fr'
+            h='calc(100dvh - 100px)'
+            
+        >
+            <GridItem rowSpan={2} bg='#0a2342' position='relative'>
+                <VStack p='1em' spacing='35px'>
+                    <Avatar name="Antonio" src='blank' />
+                    <CircumIcon name="box_list" color='white' />
+                    <CircumIcon name="calendar" color='white'/>
+                </VStack>
+            </GridItem>
+            <GridItem rowSpan={2} bg='white' maxW='400px' boxShadow='2xl' position='relative'>
+                <Heading textAlign='center' mt='1em' fontStyle='italic' fontWeight="700" color='#0a2342' fontFamily={'Prompt'}>Jobs</Heading>
+                <VStack spacing='25px'>
+                    {displayJobs}
+                </VStack>
+            </GridItem>
+            <GridItem bg='white'></GridItem>
+            <GridItem bg='#d8e2dc' boxShadow='inner'></GridItem>
 
-        </Flex>
+        </Grid>
+        
     )
 }
