@@ -1,4 +1,4 @@
-import { Grid, GridItem, Flex, Box, Text, Stack, VStack, Avatar, Heading } from "@chakra-ui/react"
+import { Grid, GridItem, Flex, Box, Text, Stack, VStack, Avatar, Heading, Button, Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/react"
 import CircumIcon from "@klarr-agency/circum-icons-react"
 import { useState } from "react"
 
@@ -25,7 +25,14 @@ export function Home() {
         ]
     )
     
-    const displayJobs = jobs.map((job, index)=> <Text key={index}>{job.name}</Text>)
+    const displayJobs = jobs.map((job, index)=> <Text 
+                                                    as='Button'  
+                                                    key={index}
+                                                    fontFamily={'prompt'}
+                                                    fontSize='1.1rem'
+                                                    >
+                                                        {job.name}
+                                                </Text>)
 
 
     const [currentDate, setCurrentDate] = useState()
@@ -45,13 +52,24 @@ export function Home() {
                 </VStack>
             </GridItem>
             <GridItem rowSpan={2} bg='white' maxW='400px' boxShadow='2xl' position='relative'>
-                <Heading textAlign='center' mt='1em' fontStyle='italic' fontWeight="700" color='#0a2342' fontFamily={'Prompt'}>Jobs</Heading>
-                <VStack spacing='25px'>
+                <Heading textAlign='center' mt='1em' textDecoration='underline' fontStyle='italic' fontWeight="700" color='#0a2342' fontFamily={'Prompt'}>Jobs</Heading>
+                <VStack spacing='25px' mt='25px'>
                     {displayJobs}
                 </VStack>
             </GridItem>
             <GridItem bg='white'></GridItem>
-            <GridItem bg='#d8e2dc' boxShadow='inner'></GridItem>
+            <GridItem bg='#d8e2dc' boxShadow='inner'>
+                <Tabs align="center">
+                    <TabList>
+                        <Tab>Summary</Tab>
+                        <Tab>Weekly log</Tab>
+                    </TabList>
+                    <TabPanels>
+                        <TabPanel>info</TabPanel>
+                        <TabPanel>calendar</TabPanel>
+                    </TabPanels>
+                </Tabs>
+            </GridItem>
 
         </Grid>
         
