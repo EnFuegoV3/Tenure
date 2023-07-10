@@ -4,7 +4,7 @@ import { Home } from './Components/Pages/Home'
 import { Header } from './Components/Header'
 import { Footer } from './Components/Footer'
 import { LandingPage } from './Components/Pages/LandingPage'
-import { Button } from '@chakra-ui/react'
+
 
 function App() {
 
@@ -30,8 +30,6 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
-      {/* <Link to='/home'>home</Link> */}
-      {/* <Button onClick={handleToggle} bgColor={ loggedIn ? "green" : "red"} size='sm'>login toggle</Button> */}
       <Routes>
         
         <Route element={<PrivateRoutes />}>

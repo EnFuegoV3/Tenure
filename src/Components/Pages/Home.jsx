@@ -1,7 +1,7 @@
-import { Grid, GridItem, Flex, Box, Text, Stack, VStack, Avatar, Heading, Button, Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/react"
+import { Grid, GridItem, Flex, Box, Text, Stack, VStack, Avatar, Heading, Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/react"
 import CircumIcon from "@klarr-agency/circum-icons-react"
 import { useState } from "react"
-
+import { Clock } from "../Clock"
 
 export function Home() {
 
@@ -57,7 +57,10 @@ export function Home() {
                     {displayJobs}
                 </VStack>
             </GridItem>
-            <GridItem bg='white'></GridItem>
+            <GridItem bg='white' display='flex' justifyContent='center' alignItems='center'>
+                <Clock />
+
+            </GridItem>
             <GridItem bg='#d8e2dc' boxShadow='inner'>
                 <Tabs align="center">
                     <TabList>
