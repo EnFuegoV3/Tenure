@@ -3,6 +3,8 @@ import Logo from "./Logo"
 import { SignUpModal } from "./SignUp"
 
 
+// add live time to header?
+
 export function Header(){
     return (
         <Flex as='header' bgColor='#d8e2dc' justify="space-between" align='center' w='100%' padding='1rem'>
