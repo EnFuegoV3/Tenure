@@ -2,6 +2,7 @@ import { Button, Flex, Text, Container } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import dayjs from "dayjs";
 import relativeTime from 'dayjs/plugin/relativeTime'
+import { useStopwatch } from "react-timer-hook";
 
 
 export function Clock() {
@@ -10,7 +11,19 @@ export function Clock() {
     
     const [clockInTime, setClockInTime] = useState({})
     const [clockOutTime, setClockOutTime] = useState({})
-    const [currentHours, setCurrentHours] = useState({clockedIn: false, timePassed: ''})
+    const [hoursWorked, setHoursWorked] = useState({})
+
+   
+    const {
+        minutes,
+        hours,
+        seconds,
+        isRunning,
+        start,
+        pause,
+        reset
+    } = useStopwatch({autoStart: false})
+
 
     let date = new Date()
     let time = date.toLocaleTimeString()
@@ -25,40 +38,37 @@ export function Clock() {
     }
 
     function clockIn() {
-        setCurrentHours({...currentHours, clockedIn: true});
         setClockInTime(timeObject)
+        start()
+        
     }
 
     function clockOut() {
         setClockOutTime(timeObject)
+        pause()
+        setHoursWorked(
+            {
+                hours: hours,
+                minutes: minutes,
+                seconds: seconds
+            }
+        )
+        
     }
-    // clockInTime.date
-    // dayjs(clockInTime.date).fromNow(true)
-    useEffect(() => {
-        const interval = setInterval(() => {
-            if(currentHours.clockedIn){
-                const date = dayjs()
-                let hours = date.diff(clockInTime.date, 'h')
-                let minutes = date.diff(clockInTime.date, 'm')
-                setCurrentHours({...currentHours, timePassed: `${hours} hours and ${minutes} minutes` })
-                console.log(currentHours.timePassed)
-            }  else{clearInterval(interval)}
-            
-        }, 5000)
-        return () => clearInterval(interval)
-    }, [currentHours, clockInTime.date])
+    
+    console.log(hoursWorked)
+ 
 
     return (
         <Flex direction='column' align='center' gap='10px'>
             <Flex direction='column' gap='10px' justify='center' align='center'>
                 <Button colorScheme="green" onClick={clockIn}>Clock In</Button>
                 <Text>{clockInTime.displayTime}</Text>
-                
             </Flex>
-            <Container bg='teal' maxW='sm'>{currentHours.timePassed}</Container>
-            <Flex gap='20px'>
-                <Button colorScheme="red" onClick={clockOut}>Clock Out</Button>
+            <Container bg='teal' maxW='sm'>{hours} Hours {minutes} Minutes</Container>
+            <Flex direction='column' gap='10px' justify='center' align='center'>
                 <Text>{clockOutTime.displayTime}</Text>
+                <Button colorScheme="red" onClick={clockOut}>Clock Out</Button>
             </Flex>
         </Flex>
 

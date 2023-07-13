@@ -35,8 +35,6 @@ export function Home() {
                                                 </Text>)
 
 
-    
-
     return (
         <Grid 
             templateColumns='.2fr .6fr 2fr'
