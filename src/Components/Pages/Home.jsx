@@ -1,14 +1,34 @@
-import { Grid, GridItem, Flex, Box, Text, Stack, VStack, Avatar, Heading, Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/react"
+import { 
+    Grid, 
+    GridItem, 
+    Flex, 
+    Box, 
+    Text, 
+    Stack, 
+    IconButton, 
+    VStack, 
+    Avatar, 
+    Heading, 
+    Tabs, 
+    TabList, 
+    Tab, 
+    TabPanels, 
+    TabPanel,
+} from "@chakra-ui/react"
 import CircumIcon from "@klarr-agency/circum-icons-react"
 import { useState } from "react"
 import { Clock } from "../Clock"
 
 export function Home() {
 
+    
+
     const [jobs, setJobs] = useState(
+
         [
             {
                 name: 'Cosco',
+                id: 1,
                 dates: {
                     date: '',
                     hours: ''
@@ -16,6 +36,7 @@ export function Home() {
             },
             {
                 name: 'Freelance',
+                id: 2,
                 dates: {
                     date: '',
                     hours: ''
@@ -24,6 +45,8 @@ export function Home() {
             
         ]
     )
+
+    const [selectedJob, setSelectedJob] = useState(jobs[0] && jobs[0].id || "")
     
     const displayJobs = jobs.map((job, index)=> <Text 
                                                     as='Button'  
@@ -34,6 +57,28 @@ export function Home() {
                                                         {job.name}
                                                 </Text>)
 
+    const [jobName, setJobName] = useState('');
+
+    function addJob() {
+        console.log(jobs)
+        setJobs(prevJobs => {
+            return [
+                ...prevJobs,
+                {
+                    name: 'New Job',
+                    id: 3,
+                    dates: {
+                        date: '',
+                        hours: ''
+
+                    }
+                }
+            ]
+        })
+        
+    }    
+
+    
 
     return (
         <Grid 
@@ -52,12 +97,17 @@ export function Home() {
             <GridItem rowSpan={2} bg='white' maxW='400px' boxShadow='2xl' position='relative'>
                 <Heading textAlign='center' mt='1em' textDecoration='underline' fontStyle='italic' fontWeight="700" color='#0a2342' fontFamily={'Prompt'}>Jobs</Heading>
                 <VStack spacing='25px' mt='25px'>
+                    <IconButton
+                        color='#0a2342'
+                        variant='ghost'
+                        icon={<CircumIcon name="circle_plus" />}
+                        onClick={addJob}
+                    />
                     {displayJobs}
                 </VStack>
             </GridItem>
             <GridItem bg='white' display='flex' justifyContent='center' alignItems='center'>
                 <Clock />
-
             </GridItem>
             <GridItem bg='#d8e2dc' boxShadow='inner'>
                 <Tabs align="center">
