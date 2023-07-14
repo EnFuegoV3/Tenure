@@ -55,8 +55,6 @@ export function Clock() {
         )
         
     }
-    
-    console.log(hoursWorked)
  
 
     return (

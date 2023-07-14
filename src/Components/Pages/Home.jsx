@@ -48,16 +48,39 @@ export function Home() {
 
     const [selectedJob, setSelectedJob] = useState(jobs[0] && jobs[0].id || "")
     
-    const displayJobs = jobs.map((job, index)=> <Text 
-                                                    as='Button'  
-                                                    key={index}
-                                                    fontFamily={'prompt'}
-                                                    fontSize='1.1rem'
-                                                    >
-                                                        {job.name}
-                                                </Text>)
+    const displayJobs = jobs.map((job, index)=> <Flex key={index} gap='5px' border={job.id === selectedJob ? '1px solid black' : ''}>
+                                                    <Text
+                                                        as='Button'
+                                                        fontFamily={'prompt'}
+                                                        fontSize='1.1rem'
+                                                        color={job.id === selectedJob ? '#e94e4e' : ''}
+                                                        onClick={() => {selected(job.id)}}
+                                                        >
+                                                            {job.name}
+                                                    </Text>
+                                                    <IconButton
+                                                        ml='10px'
+                                                        id={job.id}
+                                                        variant='ghost'
+                                                        size='xs'
+                                                        icon={<CircumIcon name="edit" color='black' size='20px'/>}
+                                                    />
+                                                    <IconButton
+                                                        id={job.id}
+                                                        variant='ghost'
+                                                        size='xs'
+                                                        icon={<CircumIcon name="trash" color='black' size='20px'/>}
+                                                    />
+                                                </Flex>
+                                                        )
 
-    const [jobName, setJobName] = useState('');
+    // function editJobName(){
+        
+    // }
+    
+    function selected(id){
+        setSelectedJob(id)
+    }
 
     function addJob() {
         console.log(jobs)
