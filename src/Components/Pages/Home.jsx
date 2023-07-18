@@ -14,41 +14,35 @@ import {
     Tab, 
     TabPanels, 
     TabPanel,
+    Input,
 } from "@chakra-ui/react"
 import CircumIcon from "@klarr-agency/circum-icons-react"
 import { useState } from "react"
 import { Clock } from "../Clock"
+import { nanoid } from "nanoid"
 
 export function Home() {
 
     
 
-    const [jobs, setJobs] = useState(
+    const [jobs, setJobs] = useState([])
 
-        [
-            {
-                name: 'Cosco',
-                id: 1,
-                dates: {
-                    date: '',
-                    hours: ''
-                }
-            },
-            {
-                name: 'Freelance',
-                id: 2,
-                dates: {
-                    date: '',
-                    hours: ''
-                }
-            },
-            
-        ]
-    )
+    const [selectedJob, setSelectedJob] = useState(null)
 
-    const [selectedJob, setSelectedJob] = useState(jobs[0] && jobs[0].id || "")
+    const [editJobName, setEditJobName] = useState(false)
+
+    function changeJobName() {
+        setEditJobName(prev => !prev);
+    }
+
+    function handleNameChange(){
+        const {name, value} = event.target;
+        setJobs(prevJobs => prevJobs.map(job => {
+            return job.id === selectedJob ? {...job, [name]: value} : job
+        }))
+    }
     
-    const displayJobs = jobs.map((job, index)=> <Flex key={index} gap='5px' border={job.id === selectedJob ? '1px solid black' : ''}>
+    const displayJobs = jobs.map((job, index)=> <Flex key={index} gap='5px' p='5px' border={job.id === selectedJob ? '1px solid black' : ''}>
                                                     <Text
                                                         as='Button'
                                                         fontFamily={'prompt'}
@@ -56,13 +50,21 @@ export function Home() {
                                                         color={job.id === selectedJob ? '#e94e4e' : ''}
                                                         onClick={() => {selected(job.id)}}
                                                         >
-                                                            {job.name}
+                                                           { editJobName ? <Input 
+                                                                                placeholder={job.name} 
+                                                                                type="text"
+                                                                                name="name"
+                                                                                value={job.name}
+                                                                                onChange={handleNameChange}
+                                                                            /> 
+                                                                            : `${job.name}`}
                                                     </Text>
                                                     <IconButton
                                                         ml='10px'
                                                         id={job.id}
                                                         variant='ghost'
                                                         size='xs'
+                                                        onClick={changeJobName}
                                                         icon={<CircumIcon name="edit" color='black' size='20px'/>}
                                                     />
                                                     <IconButton
@@ -80,6 +82,7 @@ export function Home() {
     
     function selected(id){
         setSelectedJob(id)
+        
     }
 
     function addJob() {
@@ -89,7 +92,7 @@ export function Home() {
                 ...prevJobs,
                 {
                     name: 'New Job',
-                    id: 3,
+                    id: nanoid(),
                     dates: {
                         date: '',
                         hours: ''
@@ -130,7 +133,10 @@ export function Home() {
                 </VStack>
             </GridItem>
             <GridItem bg='white' display='flex' justifyContent='center' alignItems='center'>
-                <Clock />
+                { selectedJob ?
+                <Clock 
+                    selectedJob={selectedJob}
+                /> : "Select a Job or create a new one!"}
             </GridItem>
             <GridItem bg='#d8e2dc' boxShadow='inner'>
                 <Tabs align="center">
