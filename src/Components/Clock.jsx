@@ -1,13 +1,18 @@
-import { Button, Flex, Text, Container } from "@chakra-ui/react"
+import { Button, Flex, Text, Container, Heading } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import dayjs from "dayjs";
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { useStopwatch } from "react-timer-hook";
 
 
-export function Clock() {
+export function Clock({selectedJob}) {
     dayjs.extend(relativeTime)
 
+    const [jobNameHeading, setJobNameHeading] = useState('')
+
+    useEffect(() => {
+        setJobNameHeading(selectedJob.name)
+    }, [selectedJob.name])
     
     const [clockInTime, setClockInTime] = useState({})
     const [clockOutTime, setClockOutTime] = useState({})
@@ -58,7 +63,9 @@ export function Clock() {
  
 
     return (
-        <Flex direction='column' align='center' gap='10px'>
+        //add job name heading
+        <Flex direction='column' align='center' gap='10px' h='100%'>
+            <Heading>{jobNameHeading}</Heading>
             <Flex direction='column' gap='10px' justify='center' align='center'>
                 <Button colorScheme="green" onClick={clockIn}>Clock In</Button>
                 <Text>{clockInTime.displayTime}</Text>

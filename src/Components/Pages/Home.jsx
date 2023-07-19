@@ -17,7 +17,7 @@ import {
     Input,
 } from "@chakra-ui/react"
 import CircumIcon from "@klarr-agency/circum-icons-react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Clock } from "../Clock"
 import { nanoid } from "nanoid"
 
@@ -27,7 +27,7 @@ export function Home() {
 
     const [jobs, setJobs] = useState([])
 
-    const [selectedJob, setSelectedJob] = useState(null)
+    const [selectedJob, setSelectedJob] = useState('')
 
     const [editJobName, setEditJobName] = useState(false)
 
@@ -38,17 +38,19 @@ export function Home() {
     function handleNameChange(){
         const {name, value} = event.target;
         setJobs(prevJobs => prevJobs.map(job => {
-            return job.id === selectedJob ? {...job, [name]: value} : job
+            return job.id === selectedJob.id ? {...job, [name]: value} : job
         }))
+        setSelectedJob({...selectedJob, name: value})
     }
-    
-    const displayJobs = jobs.map((job, index)=> <Flex key={index} gap='5px' p='5px' border={job.id === selectedJob ? '1px solid black' : ''}>
+
+
+    const displayJobs = jobs.map((job, index)=> <Flex key={index} gap='5px' p='5px' border={job.id === selectedJob.id ? '1px solid black' : ''}>
                                                     <Text
                                                         as='Button'
                                                         fontFamily={'prompt'}
                                                         fontSize='1.1rem'
-                                                        color={job.id === selectedJob ? '#e94e4e' : ''}
-                                                        onClick={() => {selected(job.id)}}
+                                                        color={job.id === selectedJob.id ? '#e94e4e' : ''}
+                                                        onClick={() => {selected(job)}}
                                                         >
                                                            { editJobName ? <Input 
                                                                                 placeholder={job.name} 
@@ -65,7 +67,7 @@ export function Home() {
                                                         variant='ghost'
                                                         size='xs'
                                                         onClick={changeJobName}
-                                                        icon={<CircumIcon name="edit" color='black' size='20px'/>}
+                                                        icon={ !editJobName ? <CircumIcon name="edit" color='black' size='20px'/> : <CircumIcon name="square_check" color='green' size='20px'/>}
                                                     />
                                                     <IconButton
                                                         id={job.id}
@@ -80,8 +82,8 @@ export function Home() {
         
     // }
     
-    function selected(id){
-        setSelectedJob(id)
+    function selected(job){
+        setSelectedJob(job)
         
     }
 
