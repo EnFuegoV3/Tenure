@@ -20,6 +20,7 @@ import CircumIcon from "@klarr-agency/circum-icons-react"
 import { useEffect, useState } from "react"
 import { Clock } from "../Clock"
 import { nanoid } from "nanoid"
+import { JobList } from "../JobList"
 
 export function Home() {
 
@@ -44,45 +45,21 @@ export function Home() {
     }
 
 
-    const displayJobs = jobs.map((job, index)=> <Flex key={index} gap='5px' p='5px' border={job.id === selectedJob.id ? '1px solid black' : ''}>
-                                                    <Text
-                                                        as='Button'
-                                                        fontFamily={'prompt'}
-                                                        fontSize='1.1rem'
-                                                        color={job.id === selectedJob.id ? '#e94e4e' : ''}
-                                                        onClick={() => {selected(job)}}
-                                                        >
-                                                           { editJobName ? <Input 
-                                                                                placeholder={job.name} 
-                                                                                type="text"
-                                                                                name="name"
-                                                                                value={job.name}
-                                                                                onChange={handleNameChange}
-                                                                            /> 
-                                                                            : `${job.name}`}
-                                                    </Text>
-                                                    <IconButton
-                                                        ml='10px'
-                                                        id={job.id}
-                                                        variant='ghost'
-                                                        size='xs'
-                                                        onClick={changeJobName}
-                                                        icon={ !editJobName ? <CircumIcon name="edit" color='black' size='20px'/> : <CircumIcon name="square_check" color='green' size='20px'/>}
-                                                    />
-                                                    <IconButton
-                                                        id={job.id}
-                                                        variant='ghost'
-                                                        size='xs'
-                                                        icon={<CircumIcon name="trash" color='black' size='20px'/>}
-                                                    />
-                                                </Flex>
-                                                        )
+    const displayJobs = jobs.map((job, index)=> <JobList 
+                                                    key={index}
+                                                    job={job}
+                                                    selectedJob={selectedJob}
+                                                    editJobName={editJobName}
+                                                    changeJobName={changeJobName}
+                                                    handleNameChange={handleNameChange}
+                                                    select={() => select(job)}
+                                                />)
 
     // function editJobName(){
         
     // }
     
-    function selected(job){
+    function select(job){
         setSelectedJob(job)
         
     }
