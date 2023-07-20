@@ -63,7 +63,7 @@ export function Clock({selectedJob}) {
  
 
     return (
-        //add job name heading
+        
         <Flex direction='column' align='center' gap='10px' h='100%'>
             <Heading>{jobNameHeading}</Heading>
             <Flex direction='column' gap='10px' justify='center' align='center'>

@@ -11,16 +11,16 @@ export function JobList(props) {
                 color={props.job.id === props.selectedJob.id ? '#e94e4e' : ''}
                 onClick={props.select}
                 >
-                    { props.editJobName ? <Input 
+                    { props.editJobName ? <Input   //edit name input / show job name
                                         placeholder={props.job.name} 
                                         type="text"
                                         name="name"
                                         value={props.job.name}
                                         onChange={props.handleNameChange}
                                     /> 
-                                    : `${props.job.name}`}
+                                    : `${props.job.name}`} 
             </Text>
-            <IconButton
+            <IconButton //edit - accept name change button
                 ml='10px'
                 id={props.job.id}
                 variant='ghost'
@@ -28,10 +28,11 @@ export function JobList(props) {
                 onClick={props.changeJobName}
                 icon={ !props.editJobName ? <CircumIcon name="edit" color='black' size='20px'/> : <CircumIcon name="square_check" color='green' size='25px'/>}
             />
-            <IconButton
+            <IconButton //delete button
                 id={props.job.id}
                 variant='ghost'
                 size='xs'
+                onClick={(event) => props.deleteJob(event, props.job.id)}
                 icon={<CircumIcon name="trash" color='black' size='20px'/>}
             />
         </Flex>

@@ -24,8 +24,6 @@ import { JobList } from "../JobList"
 
 export function Home() {
 
-    
-
     const [jobs, setJobs] = useState([])
 
     const [selectedJob, setSelectedJob] = useState('')
@@ -44,26 +42,17 @@ export function Home() {
         setSelectedJob({...selectedJob, name: value})
     }
 
-
-    const displayJobs = jobs.map((job, index)=> <JobList 
-                                                    key={index}
-                                                    job={job}
-                                                    selectedJob={selectedJob}
-                                                    editJobName={editJobName}
-                                                    changeJobName={changeJobName}
-                                                    handleNameChange={handleNameChange}
-                                                    select={() => select(job)}
-                                                />)
-
-    // function editJobName(){
-        
-    // }
-    
-    function select(job){
-        setSelectedJob(job)
-        
+    function deleteJob(event, id){
+        event.stopPropagation();
+        setJobs(prevJobs => prevJobs.filter(job => job.id !== id))
     }
 
+    // changes selected job state to selected job
+    function select(job){
+        setSelectedJob(job)
+    }
+    
+    //adds new job
     function addJob() {
         console.log(jobs)
         setJobs(prevJobs => {
@@ -83,16 +72,30 @@ export function Home() {
         
     }    
 
-    
 
+    //maps job names to side bar
+    const displayJobs = jobs.map((job, index)=> <JobList  
+                                                    key={index}
+                                                    job={job}
+                                                    selectedJob={selectedJob}
+                                                    editJobName={editJobName}
+                                                    changeJobName={changeJobName}
+                                                    handleNameChange={handleNameChange}
+                                                    select={() => select(job)}
+                                                    deleteJob={deleteJob}
+                                                />)
+
+
+    
+//grid layout of home page
     return (
         <Grid 
             templateColumns='.2fr .6fr 2fr'
             templateRows='2fr 1fr'
             h='calc(100dvh - 100px)'
             
-        >
-            <GridItem rowSpan={2} bg='#0a2342' position='relative'>
+        >   
+            <GridItem rowSpan={2} bg='#0a2342' position='relative'> 
                 <VStack p='1em' spacing='35px'>
                     <Avatar name="Antonio" src='blank' />
                     <CircumIcon name="box_list" color='white' />
