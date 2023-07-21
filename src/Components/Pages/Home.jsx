@@ -24,7 +24,11 @@ import { JobList } from "../JobList"
 
 export function Home() {
 
-    const [jobs, setJobs] = useState([])
+    const [jobs, setJobs] = useState(JSON.parse(localStorage.getItem('jobs')) || [])
+
+    useEffect(() => {
+        localStorage.setItem('jobs', JSON.stringify(jobs))
+    }, [jobs])
 
     const [selectedJob, setSelectedJob] = useState('')
 
