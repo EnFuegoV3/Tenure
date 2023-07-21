@@ -45,13 +45,16 @@ export function Home() {
     function deleteJob(event, id){
         event.stopPropagation();
         setJobs(prevJobs => prevJobs.filter(job => job.id !== id))
+        if(id === selectedJob.id){
+            setSelectedJob('')
+        }
     }
 
     // changes selected job state to selected job
     function select(job){
         setSelectedJob(job)
     }
-    
+
     //adds new job
     function addJob() {
         console.log(jobs)
@@ -72,6 +75,16 @@ export function Home() {
         
     }    
 
+    //use this useeffect in clock comp with ternery 
+    // useEffect(() => {
+        
+    //     for(let n = 0; n < jobs.length; n++){
+    //         if(jobs[n].id !== selectedJob.id){
+    //             setSelectedJob('')
+    //         }else{return}
+    //     }
+    // }, [jobs])
+    console.log(selectedJob)
 
     //maps job names to side bar
     const displayJobs = jobs.map((job, index)=> <JobList  
