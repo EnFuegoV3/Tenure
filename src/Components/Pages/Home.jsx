@@ -37,7 +37,7 @@ export function Home() {
     function changeJobName() {
         setEditJobName(prev => !prev);
     }
-
+    //need to fix to only change one name
     function handleNameChange(){
         const {name, value} = event.target;
         setJobs(prevJobs => prevJobs.map(job => {
@@ -68,26 +68,19 @@ export function Home() {
                 {
                     name: 'New Job',
                     id: nanoid(),
-                    dates: {
-                        date: '',
-                        hours: ''
-
-                    }
+                    dates: []
                 }
             ]
         })
         
     }    
 
-    //use this useeffect in clock comp with ternery 
-    // useEffect(() => {
-        
-    //     for(let n = 0; n < jobs.length; n++){
-    //         if(jobs[n].id !== selectedJob.id){
-    //             setSelectedJob('')
-    //         }else{return}
-    //     }
-    // }, [jobs])
+    function updateJob(date, hours, minutes){
+        setJobs(prevJobs => prevJobs.map(job => {
+            return job.id === selectedJob.id ? {...job, dates: [{date: date, hours: hours, minutes: minutes}]} : job;
+        }))
+    }
+   
     console.log(selectedJob)
 
     //maps job names to side bar
@@ -135,6 +128,7 @@ export function Home() {
                 { selectedJob ?
                 <Clock 
                     selectedJob={selectedJob}
+                    updateJob={updateJob}
                 /> : "Select a Job or create a new one!"}
             </GridItem>
             <GridItem bg='#d8e2dc' boxShadow='inner'>
