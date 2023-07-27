@@ -68,20 +68,26 @@ export function Home() {
                 {
                     name: 'New Job',
                     id: nanoid(),
-                    dates: []
+                    
                 }
             ]
         })
         
     }    
 
+    //change to if date is the same push to same date or if date is not same add new object
+
+    // function updateJob(date, hours, minutes){
+    //     setJobs(prevJobs => prevJobs.map(job => {
+    //         return job.id === selectedJob.id ? {...job, date: [{hours: hours, minutes: minutes}]} : job;
+    //     }))
+    // }
+    
     function updateJob(date, hours, minutes){
         setJobs(prevJobs => prevJobs.map(job => {
-            return job.id === selectedJob.id ? {...job, dates: [{date: date, hours: hours, minutes: minutes}]} : job;
+            return job.id === selectedJob.id ? {...job, date: [{date: date, hours: hours, minutes: minutes}]} : job;
         }))
     }
-   
-    console.log(selectedJob)
 
     //maps job names to side bar
     const displayJobs = jobs.map((job, index)=> <JobList  

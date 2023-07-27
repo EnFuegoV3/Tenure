@@ -12,6 +12,10 @@ export function Clock({selectedJob, updateJob}) {
 
     useEffect(() => {
         setJobNameHeading(selectedJob.name)
+        setClockInTime({});
+        setClockOutTime({});
+        setHoursWorked({});
+        reset();
     }, [selectedJob.name])
     
     const [clockInTime, setClockInTime] = useState({})
