@@ -56,7 +56,8 @@ export function Home() {
 
     // changes selected job state to selected job
     function select(job){
-        setSelectedJob(job)
+        setSelectedJob(job);
+        console.log(job);
     }
 
     //adds new job
@@ -68,7 +69,7 @@ export function Home() {
                 {
                     name: 'New Job',
                     id: nanoid(),
-                    
+                    date: []
                 }
             ]
         })
@@ -77,17 +78,17 @@ export function Home() {
 
     //change to if date is the same push to same date or if date is not same add new object
 
-    // function updateJob(date, hours, minutes){
-    //     setJobs(prevJobs => prevJobs.map(job => {
-    //         return job.id === selectedJob.id ? {...job, date: [{hours: hours, minutes: minutes}]} : job;
-    //     }))
-    // }
-    
     function updateJob(date, hours, minutes){
         setJobs(prevJobs => prevJobs.map(job => {
-            return job.id === selectedJob.id ? {...job, date: [{date: date, hours: hours, minutes: minutes}]} : job;
+            return job.id === selectedJob.id ? {...job, date: [...job.date, {date: date, hours: hours, minutes: minutes}]} : job;
         }))
     }
+    
+    // function updateJob(date, hours, minutes){
+    //     setJobs(prevJobs => prevJobs.map(job => {
+    //         return job.id === selectedJob.id ? {...job, date: [{date: date, hours: hours, minutes: minutes}]} : job;
+    //     }))
+    // }
 
     //maps job names to side bar
     const displayJobs = jobs.map((job, index)=> <JobList  
