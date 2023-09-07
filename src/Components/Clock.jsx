@@ -10,19 +10,6 @@ export function Clock({selectedJob, updateJob}) {
 
     const [jobNameHeading, setJobNameHeading] = useState('')
 
-    useEffect(() => {
-        setJobNameHeading(selectedJob.name)
-        setClockInTime({});
-        setClockOutTime({});
-        setHoursWorked({});
-        reset();
-    }, [selectedJob.name])
-    
-    const [clockInTime, setClockInTime] = useState({})
-    const [clockOutTime, setClockOutTime] = useState({})
-    const [hoursWorked, setHoursWorked] = useState({})
-
-   
     const {
         minutes,
         hours,
@@ -31,7 +18,22 @@ export function Clock({selectedJob, updateJob}) {
         start,
         pause,
         reset
-    } = useStopwatch({autoStart: false})
+    } = useStopwatch()
+
+    useEffect(() => {
+        setJobNameHeading(selectedJob.name)
+        setClockInTime({});
+        setClockOutTime({});
+        setHoursWorked({});
+        reset(new Date(), false);
+    }, [selectedJob.name])
+    
+    const [clockInTime, setClockInTime] = useState({})
+    const [clockOutTime, setClockOutTime] = useState({})
+    const [hoursWorked, setHoursWorked] = useState({})
+
+   
+
 
 
     let date = new Date()
@@ -77,7 +79,11 @@ export function Clock({selectedJob, updateJob}) {
                     <Button colorScheme="green" onClick={clockIn}>Clock In</Button>
                     <Text>{clockInTime.displayTime}</Text>
                 </Flex>
-                <Container textAlign='center' maxW='lg' fontFamily='Prompt' fontSize='2.5rem'><Text color='#e94e4e' display='inline' fontWeight='bold' fontSize='3rem'>{hours}</Text> Hours <Text color='#e94e4e' display='inline' fontWeight='bold' fontSize='3rem'>{minutes}</Text> Minutes</Container>
+                <Container textAlign='center' maxW='lg' fontFamily='Prompt' fontSize='2.5rem'>
+                    <Text color='#e94e4e' display='inline' fontWeight='bold' fontSize='3rem'>{hours}</Text> Hours 
+                    <Text color='#e94e4e' display='inline' fontWeight='bold' fontSize='3rem'>{minutes}</Text> Minutes
+                    <Text color='#e94e4e' display='inline' fontWeight='bold' fontSize='3rem'>{seconds}</Text> Seconds
+                </Container>
                 <Flex direction='column' justify='center' align='center'>
                     <Text>{clockOutTime.displayTime}</Text>
                     <Button colorScheme="red" onClick={clockOut}>Clock Out</Button>

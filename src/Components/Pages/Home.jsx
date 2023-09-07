@@ -21,6 +21,7 @@ import { useEffect, useState } from "react"
 import { Clock } from "../Clock"
 import { nanoid } from "nanoid"
 import { JobList } from "../JobList"
+import { Summary } from "../Summary"
 
 export function Home() {
 
@@ -57,7 +58,7 @@ export function Home() {
     // changes selected job state to selected job
     function select(job){
         setSelectedJob(job);
-        console.log(job);
+        
     }
 
     //adds new job
@@ -69,7 +70,7 @@ export function Home() {
                 {
                     name: 'New Job',
                     id: nanoid(),
-                    date: []
+                    dates: []
                 }
             ]
         })
@@ -80,15 +81,10 @@ export function Home() {
 
     function updateJob(date, hours, minutes){
         setJobs(prevJobs => prevJobs.map(job => {
-            return job.id === selectedJob.id ? {...job, date: [...job.date, {date: date, hours: hours, minutes: minutes}]} : job;
+            return job.id === selectedJob.id ? {...job, dates: [...job.dates, {date: date, hours: hours, minutes: minutes}]} : job;
         }))
     }
-    
-    // function updateJob(date, hours, minutes){
-    //     setJobs(prevJobs => prevJobs.map(job => {
-    //         return job.id === selectedJob.id ? {...job, date: [{date: date, hours: hours, minutes: minutes}]} : job;
-    //     }))
-    // }
+
 
     //maps job names to side bar
     const displayJobs = jobs.map((job, index)=> <JobList  
@@ -145,7 +141,11 @@ export function Home() {
                         <Tab>Weekly log</Tab>
                     </TabList>
                     <TabPanels>
-                        <TabPanel>info</TabPanel>
+                        <TabPanel>
+                            <Summary 
+                               
+                            />
+                        </TabPanel>
                         <TabPanel>calendar</TabPanel>
                     </TabPanels>
                 </Tabs>
