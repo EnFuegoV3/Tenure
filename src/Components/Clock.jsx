@@ -49,6 +49,7 @@ export function Clock({selectedJob, updateJob}) {
     }
 
     function clockIn() {
+        reset(new Date(), false);
         setClockInTime(timeObject)
         start()
         

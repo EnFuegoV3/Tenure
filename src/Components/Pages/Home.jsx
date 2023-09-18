@@ -85,11 +85,11 @@ export function Home() {
     //     }))
     // }
 
-    function updateJob(date, hours, minutes){
-        setJobs(prevJobs => prevJobs.map(job => {
-            return job.id === selectedJob.id ? {...job, dates: date === new Date().toLocaleDateString() ? [{date: date, hours: hours, minutes: minutes}] : [...job.dates, {date: date, hours: hours, minutes: minutes}]} : job;
-        }))
-    }
+    // function updateJob(date, hours, minutes){
+    //     setJobs(prevJobs => prevJobs.map(job => {
+    //         return job.id === selectedJob.id ? {...job, dates: date === new Date().toLocaleDateString() ? [{date: date, hours: hours, minutes: minutes}] : [...job.dates, {date: date, hours: hours, minutes: minutes}]} : job;
+    //     }))
+    // }
 
     // function updateJob(date, hours, minutes){
     //     setJobs(prevJobs => prevJobs.map(job => {
@@ -111,53 +111,42 @@ export function Home() {
     //     }))
     // }
 
-    // function updateJob(date, hours, minutes) {
-    //     setJob(prevJobs => prevJobs.map(job => {
-    //       // If job id is not a match, carry on
-    //       if (job.id !== selectedJob.id) return job
+    function updateJob(date, hours, minutes) {
+        setJobs(prevJobs => prevJobs.map(job => {
+          // If job id is not a match, carry on
+          if (job.id !== selectedJob.id) return job
           
-    //       // Find an existing date
-    //       const targetDateOpt = job.dates.find(d => d.date === date)
-    //       // If there is any, we update the dates record
-    //       if (targetDateOpt) {
-    //         const dates = job.dates.map(d => {
-    //           if (d.date !== date) return d
+          // Find an existing date
+          const targetDateOpt = job.dates.find(d => d.date === date)
+          // If there is any, we update the dates record
+          if (targetDateOpt) {
+            const dates = job.dates.map(d => {
+              if (d.date !== date) return d
             
-    //           return {
-    //             date: d.date,
-    //             hours: d.hourd + hours,
-    //             minutes: d.minutes + minutes,
-    //           }
-    //         })
+              return {
+                date: d.date,
+                hours: d.hourd + hours,
+                minutes: d.minutes + minutes,
+              }
+            })
       
-    //         // Return the job, with the new dates
-    //         return { ...job, dates }
-    //       }
+            // Return the job, with the new dates
+            return { ...job, dates }
+          }
       
-    //       // Otherwise we add a new date to the list
-    //       return {
-    //         ...job,
-    //         dates: [
-    //           ...job.dates,
-    //           { date, hours, minutes },
-    //         ],
-    //       }
-    //     }))
-    //   }
+          // Otherwise we add a new date to the list
+          return {
+            ...job,
+            dates: [
+              ...job.dates,
+              { date, hours, minutes },
+            ],
+          }
+        }))
+      }
 
-    function addHours(){
-        return jobs.map(job => {
-            if(job.id === selectedJob.id){
-                
-                for(let i=0; i < job.dates.length; i++){
-                    let total = 0
-                    if(job.dates[i].date === new Date().toLocaleDateString()){
-                        total = job.dates[i].date.hours++;
-                        return total;
-                    }
-                }
-            }
-        })
+    function todaysHours(){
+  
     }
 
     //maps job names to side bar
@@ -217,7 +206,7 @@ export function Home() {
                     <TabPanels>
                         <TabPanel>
                             <Summary 
-                               totalHours={addHours}
+                               
                             />
                         </TabPanel>
                         <TabPanel>calendar</TabPanel>
