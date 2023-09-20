@@ -5,7 +5,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import { useStopwatch } from "react-timer-hook";
 
 
-export function Clock({selectedJob, updateJob}) {
+export function Clock({selectedJob, updateJob, todaysHours}) {
     dayjs.extend(relativeTime)
 
     const [jobNameHeading, setJobNameHeading] = useState('')
@@ -66,7 +66,8 @@ export function Clock({selectedJob, updateJob}) {
             }
         )
         updateJob(date.toLocaleDateString(), hours, minutes)
-       console.log(hoursWorked) 
+        
+       
     }
  
 

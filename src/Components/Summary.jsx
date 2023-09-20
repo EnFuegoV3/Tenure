@@ -4,11 +4,14 @@
 import { Flex, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
-export function Summary(props) {
+export function Summary() {
+
+
+
 
     return (
         <Flex>
-            <Text>{props.totalHours}</Text>
+            <Text>hi</Text>
         </Flex>
     )
 }

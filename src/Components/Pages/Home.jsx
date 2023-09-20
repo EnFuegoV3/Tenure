@@ -27,8 +27,16 @@ export function Home() {
 
     const [jobs, setJobs] = useState(JSON.parse(localStorage.getItem('jobs')) || [])
 
+    // const [todaysHours, setTodaysHours] = useState('')
+
+    //selected job find hours and minutes
+    
+    
+
     useEffect(() => {
         localStorage.setItem('jobs', JSON.stringify(jobs))
+        
+        
     }, [jobs])
 
     const [selectedJob, setSelectedJob] = useState('')
@@ -145,9 +153,16 @@ export function Home() {
         }))
       }
 
-    function todaysHours(){
-  
-    }
+    // function todaysHours(){
+    //     jobs.map(job => {
+    //         job.dates.date ==
+    //     })
+    // }
+
+    // const todaysHours = jobs.map(job => {
+    //     const today = new Date().toLocaleDateString();
+    //     return  (job.dates.date == today) && (job.name == selectedJob.name) ? <Text>`${job.dates.hours}`Hours `${job.dates.minutes}`Minutes</Text> : <Text>0 Hours</Text>
+    // })
 
     //maps job names to side bar
     const displayJobs = jobs.map((job, index)=> <JobList  
@@ -162,7 +177,31 @@ export function Home() {
                                                 />)
 
 
+    // const todaysHours = jobs.map(job => {const findDate = job.dates.find(d => d.date === new Date().toLocaleDateString())
+    //                                         if(findDate){
+    //                                             const timeWorked = job.dates.map
+    //                                         }})
+
+    function todaysHours(){
+        
+        let todays 
+        let todaysDate = new Date().toLocaleDateString();
+        for(let n = 0; n < jobs.length; n++){
+            if(jobs[n].name === selectedJob.name){
+                for(let i = 0; i < jobs[n].dates.length; i++){
+                    if(jobs[n].dates[i].date === todaysDate){
+                        todays = `${isNaN(jobs[n].dates[i].hours) ? '0' : jobs[n].dates[i].hours} Hours and ${jobs[n].dates[i].minutes} Minutes`
+                    }
+                }
+            }
+        }
+        
+        return <Text>{todays} Calculated on clock out</Text>
+    }
+   
     
+    
+
 //grid layout of home page
     return (
         <Grid 
@@ -175,7 +214,7 @@ export function Home() {
                 <VStack p='1em' spacing='35px'>
                     <Avatar name="Antonio" src='blank' />
                     <CircumIcon name="box_list" color='white' />
-                    <CircumIcon name="calendar" color='white'/>
+                    <CircumIcon onClick={todaysHours()} name="calendar" color='white'/>
                 </VStack>
             </GridItem>
             <GridItem rowSpan={2} bg='white' maxW='400px' boxShadow='2xl' position='relative'>
@@ -195,6 +234,7 @@ export function Home() {
                 <Clock 
                     selectedJob={selectedJob}
                     updateJob={updateJob}
+                    
                 /> : "Select a Job or create a new one!"}
             </GridItem>
             <GridItem bg='#d8e2dc' boxShadow='inner'>
@@ -205,9 +245,7 @@ export function Home() {
                     </TabList>
                     <TabPanels>
                         <TabPanel>
-                            <Summary 
-                               
-                            />
+                            {todaysHours()}
                         </TabPanel>
                         <TabPanel>calendar</TabPanel>
                     </TabPanels>
