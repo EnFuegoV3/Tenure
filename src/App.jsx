@@ -18,7 +18,7 @@ function App() {
 
   const PrivateRoutes = () => {
     return (
-      loggedIn ? <Outlet/> : <Navigate to='/' />
+      loggedIn ? <Outlet /> : <Navigate to='/' />
     )
   }
 
@@ -29,7 +29,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Header />
+      <Header handleToggle={handleToggle}/>
       <Routes>
         
         <Route element={<PrivateRoutes />}>
