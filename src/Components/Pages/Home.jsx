@@ -26,10 +26,6 @@ import { Summary } from "../Summary"
 export function Home() {
 
     const [jobs, setJobs] = useState(JSON.parse(localStorage.getItem('jobs')) || [])
-
-    // const [todaysHours, setTodaysHours] = useState('')
-
-    //selected job find hours and minutes
     
     
 
@@ -93,32 +89,6 @@ export function Home() {
     //     }))
     // }
 
-    // function updateJob(date, hours, minutes){
-    //     setJobs(prevJobs => prevJobs.map(job => {
-    //         return job.id === selectedJob.id ? {...job, dates: date === new Date().toLocaleDateString() ? [{date: date, hours: hours, minutes: minutes}] : [...job.dates, {date: date, hours: hours, minutes: minutes}]} : job;
-    //     }))
-    // }
-
-    // function updateJob(date, hours, minutes){
-    //     setJobs(prevJobs => prevJobs.map(job => {
-    //         return job.id === selectedJob.id ? {...job, dates: job.dates.map(dateObj => {dateObj.date == date ? {...dateObj.date, hours: hours, minutes: minutes} : {date: date, hours: hours, minutes: minutes}})} : job;
-    //     }))
-    // }                    
-
-
-    // function updateJob(date, hours, minutes){
-    //     setJobs(prevJobs => prevJobs.map(job => {
-    //         if(job.id === selectedJob.id) {
-    //             let todaysDate = new Date().toLocaleDateString()
-    //             for (let i = 0; i < job.dates.length; i++){
-    //                if(job.dates[i].date == todaysDate){
-    //                     job.dates[i].date.push({...job.dates, {}})
-    //                } 
-    //             }
-    //         }
-    //     }))
-    // }
-
     function updateJob(date, hours, minutes) {
         setJobs(prevJobs => prevJobs.map(job => {
           // If job id is not a match, carry on
@@ -153,16 +123,7 @@ export function Home() {
         }))
       }
 
-    // function todaysHours(){
-    //     jobs.map(job => {
-    //         job.dates.date ==
-    //     })
-    // }
 
-    // const todaysHours = jobs.map(job => {
-    //     const today = new Date().toLocaleDateString();
-    //     return  (job.dates.date == today) && (job.name == selectedJob.name) ? <Text>`${job.dates.hours}`Hours `${job.dates.minutes}`Minutes</Text> : <Text>0 Hours</Text>
-    // })
 
     //maps job names to side bar
     const displayJobs = jobs.map((job, index)=> <JobList  
@@ -175,12 +136,6 @@ export function Home() {
                                                     select={() => select(job)}
                                                     deleteJob={deleteJob}
                                                 />)
-
-
-    // const todaysHours = jobs.map(job => {const findDate = job.dates.find(d => d.date === new Date().toLocaleDateString())
-    //                                         if(findDate){
-    //                                             const timeWorked = job.dates.map
-    //                                         }})
 
     function todaysHours(){
         
@@ -205,21 +160,21 @@ export function Home() {
 //grid layout of home page
     return (
         <Grid 
-            templateColumns='.2fr .6fr 2fr'
-            templateRows='2fr 1fr'
+            templateColumns={{base: '1', md: '.2fr .6fr 2fr'}}
+            templateRows={{base: '.2fr .6fr 2fr 1.5fr', md: '2fr 1fr'}}
             h='calc(100dvh - 100px)'
             
         >   
-            <GridItem rowSpan={2} bg='#0a2342' position='relative'> 
-                <VStack p='1em' spacing='35px'>
+            <GridItem rowSpan={{ base: 1 ,md: 2}} colSpan={{base: 1, md: 1}} bg='#0a2342' position='relative'> 
+                <Stack direction={{base: 'row', md: 'column'}} p={{base: '.5em', md: '1em'}} spacing='35px'>
                     <Avatar name="Antonio" src='blank' />
                     <CircumIcon name="box_list" color='white' />
                     <CircumIcon onClick={todaysHours()} name="calendar" color='white'/>
-                </VStack>
+                </Stack>
             </GridItem>
-            <GridItem rowSpan={2} bg='white' maxW='400px' boxShadow='2xl' position='relative'>
-                <Heading textAlign='center' mt='1em' textDecoration='underline' fontStyle='italic' fontWeight="700" color='#0a2342' fontFamily={'Prompt'}>Jobs</Heading>
-                <VStack spacing='25px' mt='25px'>
+            <GridItem rowSpan={{ base: 1 ,md: 2}} colSpan={{base: 1, md: 1}} bg='white' maxW='400px' boxShadow='2xl' position='relative'>
+                <Heading textAlign='center' mt={{ md: '1em'}} textDecoration='underline' fontStyle='italic' fontWeight="700" color='#0a2342' fontFamily={'Prompt'}>Jobs</Heading>
+                <Stack direction={{ base: 'column', md: 'column'}} spacing='25px' mt='25px'>
                     <IconButton
                         color='#0a2342'
                         variant='ghost'
@@ -227,7 +182,7 @@ export function Home() {
                         onClick={addJob}
                     />
                     {displayJobs}
-                </VStack>
+                </Stack>
             </GridItem>
             <GridItem bg='white' display='flex' justifyContent='center' alignItems='center'>
                 { selectedJob ?
