@@ -73,22 +73,22 @@ export function Clock({selectedJob, updateJob, todaysHours}) {
 
     return (
         
-        <Container h='60%'>
-            <Heading fontFamily='Prompt' textAlign='center' fontSize='3rem' textDecoration='underline'>{jobNameHeading}</Heading>
-            <Flex direction='column' h='100%' justify='center' align='center' gap='2em'>
+        <Container h={{ medium: '60%'}}>
+            <Heading fontFamily='Prompt' textAlign='center' fontSize={{base: '2rem', md: '3rem'}} mb={{base: '1em'}} textDecoration='underline'>{jobNameHeading}</Heading>
+            <Flex direction='column' h={{base: '40%', md:'100%'}} justify='center' align='center' gap='2em'>
                 
                 <Flex direction='column' justify='center' align='center'>
-                    <Button colorScheme="green" onClick={clockIn}>Clock In</Button>
+                    <Button colorScheme="green" size={{base:'xs', md: 'md'}} onClick={clockIn}>Clock In</Button>
                     <Text>{clockInTime.displayTime}</Text>
                 </Flex>
-                <Container textAlign='center' maxW='lg' fontFamily='Prompt' fontSize='2.5rem'>
-                    <Text color='#e94e4e' display='inline' fontWeight='bold' fontSize='3rem'>{hours}</Text> Hours 
-                    <Text color='#e94e4e' display='inline' fontWeight='bold' fontSize='3rem'>{minutes}</Text> Minutes
-                    <Text color='#e94e4e' display='inline' fontWeight='bold' fontSize='3rem'>{seconds}</Text> Seconds
+                <Container textAlign='center' maxW='lg' fontFamily='Prompt' fontSize={{ base: '1.5em', md: '3rem'}}>
+                    <Text color='#e94e4e' display='inline' fontWeight='bold' >{hours}</Text> Hours 
+                    <Text color='#e94e4e' display='inline' fontWeight='bold' >{minutes}</Text> Minutes
+                    {/* <Text color='#e94e4e' display='inline' fontWeight='bold' >{seconds}</Text> Seconds */}
                 </Container>
                 <Flex direction='column' justify='center' align='center'>
                     <Text>{clockOutTime.displayTime}</Text>
-                    <Button colorScheme="red" onClick={clockOut}>Clock Out</Button>
+                    <Button colorScheme="red" size={{base:'xs', md: 'md'}} onClick={clockOut}>Clock Out</Button>
                 </Flex>
             </Flex>
         </Container>
