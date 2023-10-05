@@ -12,7 +12,7 @@ export function Header(props){
             <Flex as="nav" gap='10' color='#686963' fontSize='xl' fontWeight='bold' fontFamily={'prompt'}>
                 <SignUpModal />
                 {/* <Text _hover={{color: "#e94e4e", fontStyle: 'italic'}} className="nav-items">Sign up</Text> */}
-                <Text _hover={{color: "#e94e4e", fontStyle: 'italic'}} className="nav-items" onClick={props.handleToggle}>Log in</Text>
+                <Text _hover={{color: "#e94e4e", fontStyle: 'italic'}} className="nav-items"><Link to='/home'>Log in</Link></Text>
             </Flex>
         </Flex>
         
